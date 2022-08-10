@@ -82,4 +82,5 @@ const createPost = (req, res) => {
 
 }
 
+//포스팅
 module.exports = { createUser, createPost } // routing.js 에서 사용하기 위해 모듈로 내보냅니다.
