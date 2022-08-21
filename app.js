@@ -59,7 +59,6 @@ const createUser = (req, res) => {
 }
 
 const createPost = (req, res) => {
-
   const post = req.body.postInfo // 프론트에서 받아온 정보를 가져옵니다.
   console.log(post)
 
@@ -78,5 +77,20 @@ const createPost = (req, res) => {
 
 }
 
+const getPost = (req, res) => {
+  const newPosts = posts.map((post) => {
+    const user = users.find((user) => post.userId === user.id)
+    return {
+      userid: post.userId,
+      userName: user.name,
+      postingId: post.id,
+      postingTitle: post.title,
+      postingContent: post.content
+    }
+  })
+  res.json({ data: newPosts })
+  //res.json({ data: posts })
+};
+
 //포스팅
-module.exports = { createUser, createPost } // routing.js 에서 사용하기 위해 모듈로 내보냅니다.
+module.exports = { createUser, createPost, getPost } // routing.js 에서 사용하기 위해 모듈로 내보냅니다.
