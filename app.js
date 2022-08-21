@@ -118,5 +118,31 @@ const delPost = (req, res) => {
   console.log("deletePosts :", posts)
   res.status(201).json({ message: "postingDeleted" })
 }
+
+const userPost = (req, res) => {
+  const userId = Number(req.query.userId);
+  const userInfo = users.find((user) => user.id === userId)
+  const postInfo = posts.filter((post) => post.userId === userId)
+
+  let newPostings = [];
+
+  postInfo.forEach((post) => {
+    let tmp = {
+      postingId: post.id,
+      postingTitle: post.title,
+      postingContent: post.content
+    };
+    newPostings.push(tmp);
+  });
+
+  const newUserPost = {
+    userID: userId,
+    userName: userInfo.name,
+    postings: newPostings
+  };
+
+  res.json({ data: newUserPost })
+}
+
 //포스팅
-module.exports = { createUser, createPost, getPost, modPost, delPost } // routing.js 에서 사용하기 위해 모듈로 내보냅니다.
+module.exports = { createUser, createPost, getPost, modPost, delPost, userPost } // routing.js 에서 사용하기 위해 모듈로 내보냅니다.
