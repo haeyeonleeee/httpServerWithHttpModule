@@ -92,5 +92,21 @@ const getPost = (req, res) => {
   //res.json({ data: posts })
 };
 
+const modPost = (req, res) => {
+  const { id, content } = req.body;
+
+  const post = posts.find((post) => post.id === id);
+  post.content = content;
+  const user = users.find((user) => post.userId === user.id)
+  const newPost = {
+    userId: post.userId,
+    userName: user.name,
+    postingId: post.id,
+    postingTitle: post.title,
+    postingContent: post.content
+  }
+
+  res.json({ data: newPost })
+};
 //포스팅
-module.exports = { createUser, createPost, getPost } // routing.js 에서 사용하기 위해 모듈로 내보냅니다.
+module.exports = { createUser, createPost, getPost, modPost } // routing.js 에서 사용하기 위해 모듈로 내보냅니다.
