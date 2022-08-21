@@ -1,7 +1,7 @@
 
 const http = require('http')
 const express = require('express')
-const { createUser, createPost, getPost, modPost, delPost } = require('./app')
+const { createUser, createPost, getPost, modPost, delPost, userPost } = require('./app')
 
 const app = express()
 app.use(express.json())
@@ -15,6 +15,7 @@ app.post('/posts', createPost)
 app.get('/getposts', getPost)
 app.patch('/modifyposts', modPost)
 app.delete('/delete', delPost)
+app.get('/user-post', userPost)
 
 const server = http.createServer(app)
 
