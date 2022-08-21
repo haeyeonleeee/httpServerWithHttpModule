@@ -1,7 +1,7 @@
 
 const http = require('http')
 const express = require('express')
-const { createUser, createPost, getPost, modPost } = require('./app')
+const { createUser, createPost, getPost, modPost, delPost } = require('./app')
 
 const app = express()
 app.use(express.json())
@@ -14,6 +14,7 @@ app.post('/signup', createUser)// 첫번째 인자에는 endpoint url 을 기입
 app.post('/posts', createPost)
 app.get('/getposts', getPost)
 app.patch('/modifyposts', modPost)
+app.delete('/delete', delPost)
 
 const server = http.createServer(app)
 

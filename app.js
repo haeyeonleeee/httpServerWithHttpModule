@@ -13,7 +13,7 @@ const users = [
   },
 ];
 
-const posts = [
+let posts = [
   {
     id: 1,
     title: "간단한 HTTP API 개발 시작!",
@@ -108,5 +108,15 @@ const modPost = (req, res) => {
 
   res.json({ data: newPost })
 };
+
+const delPost = (req, res) => {
+  let { id } = req.query;
+  const newId = Number(id);
+  const result = posts.filter((post) => post.id !== newId)
+  posts = result;
+
+  console.log("deletePosts :", posts)
+  res.status(201).json({ message: "postingDeleted" })
+}
 //포스팅
-module.exports = { createUser, createPost, getPost, modPost } // routing.js 에서 사용하기 위해 모듈로 내보냅니다.
+module.exports = { createUser, createPost, getPost, modPost, delPost } // routing.js 에서 사용하기 위해 모듈로 내보냅니다.
