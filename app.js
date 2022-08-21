@@ -58,5 +58,39 @@ const createUser = (req, res) => {
   // response 객체의 json 메소드를 활용합니다.
 }
 
+const createPost = (req, res) => {
+  const post = req.body.postInfo // 프론트에서 받아온 정보를 가져옵니다.
+  console.log(post)
+
+  posts.push({
+    id: post.id,
+    title: post.title,
+    content: post.content,
+    userId: post.userId
+  })
+
+  console.log('after: ', posts)
+
+  res.json({ message: "postCreated" })
+  // express 덕분에 JSON.stringify 함수를 사용할 필요없이
+  // response 객체의 json 메소드를 활용합니다.
+
+}
+
+const getPost = (req, res) => {
+  const newPosts = posts.map((post) => {
+    const user = users.find((user) => post.userId === user.id)
+    return {
+      userid: post.userId,
+      userName: user.name,
+      postingId: post.id,
+      postingTitle: post.title,
+      postingContent: post.content
+    }
+  })
+  res.json({ data: newPosts })
+  //res.json({ data: posts })
+};
+
 //포스팅
-module.exports = { createUser, } // routing.js 에서 사용하기 위해 모듈로 내보냅니다.
+module.exports = { createUser, createPost, getPost } // routing.js 에서 사용하기 위해 모듈로 내보냅니다.
